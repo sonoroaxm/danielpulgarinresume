@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Daniel Pulgarin — A/V Project Manager</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --c2: #993C1D; --c3: #D85A30; --c4: #F0997B; --k1: #111110; --k3: #5F5E5A; --k4: #D3D1C7; --k5: #F7F6F2; }
+html, body { height: 100%; width: 100%; overflow: hidden; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--k1); color: #fff; display: flex; flex-direction: column; height: 100vh; }
+
+.accent-bar { height: 4px; background: linear-gradient(90deg, var(--k1) 0%, var(--c2) 50%, var(--c4) 100%); flex-shrink: 0; }
+.accent-bar-bot { height: 4px; background: linear-gradient(90deg, var(--c4) 0%, var(--c2) 50%, var(--k1) 100%); flex-shrink: 0; }
+
+/* FOTO FONDO */
+.bg-photo { position: fixed; inset: 0; z-index: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.bg-photo img { height: 100vh; width: auto; object-fit: cover; object-position: top center; mix-blend-mode: luminosity; filter: contrast(1.05) brightness(0.55) saturate(0.2); opacity: 0.3; }
+.bg-photo .ph { font-size: 40vw; font-weight: 700; color: rgba(216,90,48,0.05); letter-spacing: -2vw; user-select: none; line-height: 1; }
+.bg-fade { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to right, var(--k1) 0%, transparent 28%, transparent 72%, var(--k1) 100%), linear-gradient(to bottom, var(--k1) 0%, transparent 15%, transparent 80%, var(--k1) 100%); }
+
+/* TOPBAR */
+.topbar { position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 1.5vh 4vw; border-bottom: 0.5px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+.topbar-brand { font-size: clamp(12px, 1.1vw, 16px); font-weight: 500; color: var(--c4); letter-spacing: 0.06em; text-transform: uppercase; }
+.topbar-contact { display: flex; gap: 2vw; align-items: center; }
+.topbar-item { font-size: clamp(10px, 0.9vw, 13px); color: #555; text-decoration: none; }
+.topbar-item:hover { color: var(--c4); }
+
+/* MAIN */
+.main { position: relative; z-index: 10; flex: 1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 6vw; gap: 4vw; min-height: 0; }
+
+/* LEFT */
+.left { display: flex; flex-direction: column; gap: clamp(12px, 2vh, 24px); }
+.hello { font-size: clamp(9px, 0.8vw, 12px); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c3); }
+.name { font-size: clamp(48px, 8vw, 110px); font-weight: 700; line-height: 0.88; letter-spacing: -0.03em; }
+.name em { color: var(--c3); font-style: normal; display: block; }
+.divider { width: clamp(24px, 2.5vw, 40px); height: 3px; background: var(--c3); }
+.tagline { font-size: clamp(12px, 1vw, 15px); color: #666; line-height: 1.75; }
+.tagline strong { color: var(--c4); font-weight: 500; }
+.badges { display: flex; flex-direction: column; gap: 6px; }
+.badge { display: inline-flex; align-items: center; gap: 7px; font-size: clamp(9px, 0.75vw, 11px); padding: 5px 14px; border: 1px solid #3B6D11; border-radius: 20px; color: #7BC950; width: fit-content; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: #639922; flex-shrink: 0; }
+
+/* RIGHT */
+.right { display: flex; flex-direction: column; gap: clamp(16px, 2.5vh, 32px); }
+.cv-label { font-size: clamp(9px, 0.75vw, 11px); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c3); }
+.cv-btns { display: flex; flex-direction: column; gap: 12px; }
+.cv-btn { display: flex; align-items: center; justify-content: space-between; padding: clamp(14px, 1.8vh, 22px) clamp(16px, 1.8vw, 24px); border: 1px solid rgba(153,60,29,0.45); border-radius: 3px; text-decoration: none; color: #fff; background: rgba(153,60,29,0.1); transition: background 0.2s, border-color 0.2s; }
+.cv-btn:hover { background: var(--c3); border-color: var(--c3); }
+.cv-btn-title { font-size: clamp(14px, 1.3vw, 20px); font-weight: 500; }
+.cv-btn-lang { font-size: clamp(9px, 0.7vw, 11px); color: var(--c4); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 3px; }
+.cv-btn:hover .cv-btn-lang { color: rgba(255,255,255,0.75); }
+.cv-btn-arrow { font-size: clamp(18px, 1.8vw, 28px); color: rgba(240,153,123,0.6); flex-shrink: 0; }
+.cv-btn:hover .cv-btn-arrow { color: #fff; }
+
+.ext-links { display: flex; flex-direction: column; gap: 10px; padding-top: 0.5vh; border-top: 0.5px solid rgba(255,255,255,0.07); }
+.ext-link { font-size: clamp(10px, 0.85vw, 13px); color: #444; text-decoration: none; display: flex; align-items: center; gap: 7px; }
+.ext-link:hover { color: var(--c4); }
+.ext-dot { color: var(--c3); }
+
+/* BOTTOM */
+.bottombar { position: relative; z-index: 10; padding: 1.2vh 4vw; border-top: 0.5px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; flex-shrink: 0; }
+.bottom-copy { font-size: clamp(9px, 0.75vw, 11px); color: #333; }
+</style>
+</head>
+<body>
+
+<div class="accent-bar"></div>
+
+<!-- FOTO FONDO -->
+<!-- Reemplaza PEGA_AQUI_TU_BASE64 con tu base64 de base64-image.de -->
+<div class="bg-photo">
+  <img src="PEGA_AQUI_TU_BASE64" alt="Daniel Pulgarin" id="bgImg"/>
+  <div class="ph" id="bgPh">DP</div>
+</div>
+<div class="bg-fade"></div>
+
+<div class="topbar">
+  <div class="topbar-brand">Daniel Pulgarin</div>
+  <div class="topbar-contact">
+    <a href="mailto:sonoroaxm@gmail.com" class="topbar-item">sonoroaxm@gmail.com</a>
+    <a href="tel:+573144460990" class="topbar-item">+57 314 446 0990</a>
+    <a href="https://www.linkedin.com/in/danielepulgarin" target="_blank" class="topbar-item">LinkedIn ↗</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="left">
+    <div class="hello">Hola, soy</div>
+    <div class="name">Daniel<br><em>Pulgarin.</em></div>
+    <div class="divider"></div>
+    <p class="tagline">
+      Diseñador Industrial &amp; Gerente de Proyectos A/V · +5 años<br>
+      Fundador de <strong>Sonoro AV SAS</strong>
+    </p>
+    <div class="badges">
+      <div class="badge"><div class="dot"></div>Disponible para reubicación</div>
+      <div class="badge"><div class="dot"></div>Trabajo remoto</div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="cv-label">Hoja de Vida / Resume</div>
+    <div class="cv-btns">
+      <!-- Reemplaza cv-espanol.html con el nombre exacto de tu archivo -->
+      <a href="cv-espanol.html" class="cv-btn">
+        <div>
+          <div class="cv-btn-title">Hoja de Vida</div>
+          <div class="cv-btn-lang">Español</div>
+        </div>
+        <span class="cv-btn-arrow">↗</span>
+      </a>
+      <!-- Reemplaza cv-english.html con el nombre exacto de tu archivo -->
+      <a href="cv-english.html" class="cv-btn">
+        <div>
+          <div class="cv-btn-title">Resume</div>
+          <div class="cv-btn-lang">English</div>
+        </div>
+        <span class="cv-btn-arrow">↗</span>
+      </a>
+    </div>
+    <div class="ext-links">
+      <a href="https://www.sonoro.com.co" target="_blank" class="ext-link"><span class="ext-dot">→</span> sonoro.com.co</a>
+      <a href="https://drive.google.com/drive/folders/1gkPH63gIAifVpaIQ8bqei5NEHikyCJfd?usp=sharing" target="_blank" class="ext-link"><span class="ext-dot">→</span> Portfolio diseño &amp; video</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="bottombar">
+  <span class="bottom-copy">Armenia, Quindío, Colombia</span>
+  <span class="bottom-copy">© 2025 Daniel Pulgarin</span>
+</div>
+
+<div class="accent-bar-bot"></div>
+
+<script>
+var img = document.getElementById('bgImg');
+var ph = document.getElementById('bgPh');
+if (!img.src || img.src.indexOf('PEGA_AQUI') !== -1) {
+  img.style.display = 'none';
+} else {
+  ph.style.display = 'none';
+}
+img.onerror = function() {
+  this.style.display = 'none';
+  ph.style.display = 'block';
+};
+img.onload = function() {
+  ph.style.display = 'none';
+};
+</script>
+
+</body>
+</html>
